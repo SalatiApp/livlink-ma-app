@@ -54,7 +54,7 @@
   </script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
     
     * {
       box-sizing: border-box;
@@ -62,9 +62,9 @@
       padding: 0;
     }
     body {
-      font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+      font-family: 'Readex Pro', system-ui, -apple-system, sans-serif;
       font-weight: 400;
-      letter-spacing: 0.3px;
+      letter-spacing: normal;
       -webkit-tap-highlight-color: transparent;
       background-color: #020617;
       color: #f8fafc;
@@ -100,7 +100,7 @@
       
       <!-- Left Side (RTL Start): Role Selector & Theme Toggle & Scooter -->
       <div class="flex items-center justify-between gap-3 flex-1 max-w-[230px]">
-        <!-- Role Switcher Button (التعديل الأول: متمركز تماماً في الوسط مع إضافة سهم) -->
+        <!-- Role Switcher Button -->
         <button onclick="openQuickRoleModal()" class="bg-white hover:bg-slate-50 text-slate-900 rounded-full px-2.5 py-1.5 shadow-md flex items-center justify-center gap-1.5 border border-slate-200 shrink-0 active:scale-95 transition-all cursor-pointer">
           <div class="text-center flex flex-col items-center justify-center">
             <span class="text-[9.5px] font-black text-[#1e3a8a] leading-tight block whitespace-nowrap">نوع الاستخدام</span>
@@ -127,7 +127,7 @@
             <line x1="78" y1="37" x2="112" y2="37" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round" opacity="0.75"/>
             <rect x="65" y="22" width="19" height="17" rx="3" fill="#334155" stroke="#475569" stroke-width="1.2"/>
             <rect x="67" y="24" width="15" height="13" rx="1.5" fill="#1e293b"/>
-            <text x="74.5" y="33" font-size="5.5" font-family="'Cairo', sans-serif" font-weight="bold" fill="#ffffff" text-anchor="middle">ليفرور</text>
+            <text x="74.5" y="33" font-size="5.5" font-family="'Readex Pro', sans-serif" font-weight="bold" fill="#ffffff" text-anchor="middle">ليفرور</text>
             <ellipse cx="46" cy="16" rx="7.5" ry="8.5" fill="#ef4444" stroke="#b91c1c" stroke-width="1.2"/>
             <path d="M42 15 Q38 17 42 20" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
             <path d="M45 24 L58 30 L55 49 L43 49 L39 32 Z" fill="#0284c7" stroke="#0369a1" stroke-width="1.2"/>
@@ -698,7 +698,7 @@
         }).addTo(homeLeafletMap);
 
         const mainMarker = L.marker(cityData.coords).addTo(homeLeafletMap);
-        mainMarker.bindPopup(`<div dir="rtl" style="font-family:'Cairo',sans-serif; font-size:11px; font-weight:bold;">📍 مركز ${cityData.nameAr}<br><span style="font-size:9px; color:#555;">منطقة التوصيل النشطة</span></div>`);
+        mainMarker.bindPopup(`<div dir="rtl" style="font-family:'Readex Pro',sans-serif; font-size:11px; font-weight:bold;">📍 مركز ${cityData.nameAr}<br><span style="font-size:9px; color:#555;">منطقة التوصيل النشطة</span></div>`);
 
         const currentOffers = DataService.getOffers().filter(o => currentGlobalCity === 'all' || o.city === currentGlobalCity);
         const currentDrivers = DataService.getDrivers().filter(d => currentGlobalCity === 'all' || d.city === currentGlobalCity);
@@ -707,14 +707,14 @@
           const offsetLat = cityData.coords[0] + (Math.sin(idx) * 0.015);
           const offsetLng = cityData.coords[1] + (Math.cos(idx) * 0.015);
           const marker = L.marker([offsetLat, offsetLng]).addTo(homeLeafletMap);
-          marker.bindPopup(`<div dir="rtl" style="font-family:'Cairo',sans-serif; font-size:11px;">🏪 <b>${escapeHTML(offer.shopName)}</b><br><span>${escapeHTML(offer.shopType || 'محل تجاري')}</span><br><b>${offer.price} درهم</b></div>`);
+          marker.bindPopup(`<div dir="rtl" style="font-family:'Readex Pro',sans-serif; font-size:11px;">🏪 <b>${escapeHTML(offer.shopName)}</b><br><span>${escapeHTML(offer.shopType || 'محل تجاري')}</span><br><b>${offer.price} درهم</b></div>`);
         });
 
         currentDrivers.forEach((driver, idx) => {
           const offsetLat = cityData.coords[0] + (Math.cos(idx + 1) * 0.02);
           const offsetLng = cityData.coords[1] + (Math.sin(idx + 1) * 0.02);
           const marker = L.marker([offsetLat, offsetLng]).addTo(homeLeafletMap);
-          marker.bindPopup(`<div dir="rtl" style="font-family:'Cairo',sans-serif; font-size:11px;">🏍️ <b>${escapeHTML(driver.name)}</b><br><span>وسيلة: ${escapeHTML(driver.vehicle)}</span><br><span style="color:${driver.isAvailable ? 'green' : 'gray'}">${driver.isAvailable ? 'متاح للتوصيل' : 'غير متاح'}</span></div>`);
+          marker.bindPopup(`<div dir="rtl" style="font-family:'Readex Pro',sans-serif; font-size:11px;">🏍️ <b>${escapeHTML(driver.name)}</b><br><span>وسيلة: ${escapeHTML(driver.vehicle)}</span><br><span style="color:${driver.isAvailable ? 'green' : 'gray'}">${driver.isAvailable ? 'متاح للتوصيل' : 'غير متاح'}</span></div>`);
         });
 
       } catch (err) {
@@ -735,7 +735,7 @@
           const lng = position.coords.longitude;
           homeLeafletMap.setView([lat, lng], 16);
           L.marker([lat, lng]).addTo(homeLeafletMap)
-            .bindPopup(`<div dir="rtl" style="font-family:'Cairo',sans-serif; font-size:11px; font-weight:bold;">📍 موقعك الحالي</div>`)
+            .bindPopup(`<div dir="rtl" style="font-family:'Readex Pro',sans-serif; font-size:11px; font-weight:bold;">📍 موقعك الحالي</div>`)
             .openPopup();
           showToast('تم تحديد موقعك بنجاح', 'success');
         },
@@ -848,9 +848,9 @@
           },
           createMarker: function(i, waypoint, n) {
             if (i === 0) {
-              return L.marker(waypoint.latLng).bindPopup('<div dir="rtl" style="font-family:\'Cairo\',sans-serif; font-size:11px;"><b>🏍️ موقعك الحالي (السائق)</b></div>');
+              return L.marker(waypoint.latLng).bindPopup('<div dir="rtl" style="font-family:\'Readex Pro\',sans-serif; font-size:11px;"><b>🏍️ موقعك الحالي (السائق)</b></div>');
             } else {
-              return L.marker(waypoint.latLng).bindPopup(`<div dir="rtl" style="font-family:\'Cairo\',sans-serif; font-size:11px;"><b>🏪 محل: ${escapeHTML(params.shopName)}</b></div>`);
+              return L.marker(waypoint.latLng).bindPopup(`<div dir="rtl" style="font-family:\'Readex Pro\',sans-serif; font-size:11px;"><b>🏪 محل: ${escapeHTML(params.shopName)}</b></div>`);
             }
           }
         }).addTo(map);
@@ -1709,9 +1709,9 @@
             </div>
           </div>
 
-          <button type="submit" class="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-black text-xs sm:text-sm rounded-xl shadow-md active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2 leading-normal">
+          <button type="submit" class="w-full py-3.5 px-4 bg-amber-500 hover:bg-amber-600 text-slate-950 font-semibold text-sm rounded-xl shadow-md active:scale-95 transition-all cursor-pointer flex items-center justify-center gap-2 leading-normal">
             <i class="fa-solid fa-check text-xs shrink-0"></i> 
-            <span style="letter-spacing: 0.3px;" class="whitespace-nowrap">تسجيل الملف الشخصي</span>
+            <span class="whitespace-nowrap">تسجيل الملف الشخصي</span>
           </button>
         </form>
       `;
