@@ -54,7 +54,7 @@
   </script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap');
     
     * {
       box-sizing: border-box;
@@ -63,6 +63,8 @@
     }
     body {
       font-family: 'Cairo', system-ui, -apple-system, sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.3px;
       -webkit-tap-highlight-color: transparent;
       background-color: #020617;
       color: #f8fafc;
@@ -98,12 +100,13 @@
       
       <!-- Left Side (RTL Start): Role Selector & Theme Toggle & Scooter -->
       <div class="flex items-center justify-between gap-3 flex-1 max-w-[230px]">
-        <!-- Role Switcher Button (التعديل الأول: متمركز تماماً في الوسط) -->
-        <button onclick="openQuickRoleModal()" class="bg-white hover:bg-slate-50 text-slate-900 rounded-full px-2.5 py-1.5 shadow-md flex items-center justify-center border border-slate-200 shrink-0 active:scale-95 transition-all cursor-pointer">
+        <!-- Role Switcher Button (التعديل الأول: متمركز تماماً في الوسط مع إضافة سهم) -->
+        <button onclick="openQuickRoleModal()" class="bg-white hover:bg-slate-50 text-slate-900 rounded-full px-2.5 py-1.5 shadow-md flex items-center justify-center gap-1.5 border border-slate-200 shrink-0 active:scale-95 transition-all cursor-pointer">
           <div class="text-center flex flex-col items-center justify-center">
             <span class="text-[9.5px] font-black text-[#1e3a8a] leading-tight block whitespace-nowrap">نوع الاستخدام</span>
             <span id="headerRoleBadge" class="text-[8px] font-extrabold text-[#2563eb] leading-tight block whitespace-nowrap">(صاحب محل)</span>
           </div>
+          <i class="fa-solid fa-chevron-down text-[8px] text-[#2563eb]"></i>
         </button>
 
         <!-- Dark/Light Theme Button -->
@@ -154,7 +157,7 @@
   <main id="appContainer" class="max-w-md mx-auto px-3.5 pt-4 pb-safe">
   </main>
 
-  <!-- Bottom Navigation (التعديل الثاني: زر إضافة نزل ليكون على نفس السطر وبمسافات متساوية) -->
+  <!-- Bottom Navigation -->
   <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_16px_rgba(0,0,0,0.04)]">
     <div class="max-w-md mx-auto flex items-center justify-around py-2 px-1">
       <button onclick="navigateTo('home')" class="nav-btn flex-1 py-1 flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500" data-page="home">
