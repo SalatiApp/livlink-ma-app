@@ -34,32 +34,10 @@
     }
   </script>
   <style>
-    /* Arabic readability: use Tajawal consistently, with safe offline fallbacks. */
-    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap');
-    :root {
-      --livlink-font: 'Tajawal', 'Noto Sans Arabic', 'Noto Naskh Arabic', system-ui, sans-serif;
-    }
-    html, body {
-      font-family: var(--livlink-font);
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap');
+    body {
+      font-family: 'Cairo', system-ui, -apple-system, sans-serif;
       -webkit-tap-highlight-color: transparent;
-      text-rendering: optimizeLegibility;
-    }
-    /* Tailwind utilities and dynamically-created forms can set their own font. */
-    body, body button, body input, body select, body textarea, body option,
-    body label, body p, body span, body a, body h1, body h2, body h3, body h4,
-    body h5, body h6, body li, body small, body strong {
-      font-family: var(--livlink-font);
-    }
-    input::placeholder, textarea::placeholder {
-      font-family: var(--livlink-font);
-      letter-spacing: normal;
-    }
-    input, textarea, select, button {
-      letter-spacing: normal;
-      line-height: 1.55;
-    }
-    p, label {
-      line-height: 1.65;
     }
     .pb-safe {
       padding-bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
@@ -124,11 +102,11 @@
         </span>
       </button>
 
-      <!-- Role Selection Button -->
-      <button onclick="openQuickRoleModal()" class="bg-white text-slate-900 rounded-full px-2.5 py-1.5 shadow-md flex items-center gap-1.5 border border-slate-200 cursor-pointer">
-        <div class="text-right flex flex-col justify-center">
+      <!-- Role Selection Button (تعديل 1: متمركز في الوسط بالكامل) -->
+      <button onclick="openQuickRoleModal()" class="bg-white text-slate-900 rounded-full px-3 py-1.5 shadow-md flex items-center justify-center border border-slate-200 cursor-pointer">
+        <div class="text-center flex flex-col items-center justify-center">
           <span class="text-[9px] font-black text-[#1e3a8a] leading-tight block">نوع الاستخدام</span>
-          <span id="headerRoleBadge" class="text-[7.5px] font-bold text-[#2563eb] leading-tight block">(المغرب كامل)</span>
+          <span id="headerRoleBadge" class="text-[7.5px] font-bold text-[#2563eb] leading-tight block">(صاحب محل)</span>
         </div>
       </button>
 
@@ -140,7 +118,7 @@
     <!-- Dynamic views injected here -->
   </main>
 
-  <!-- Bottom Navigation Bar -->
+  <!-- Bottom Navigation Bar (تعديل 2: زر إضافة على نفس الخط بمسافات متساوية) -->
   <nav class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-[0_-4px_16px_rgba(0,0,0,0.04)]">
     <div class="max-w-md mx-auto flex items-center justify-around py-2 px-1">
       <button onclick="navigateTo('home')" class="nav-btn flex-1 py-1 flex flex-col items-center gap-1 text-slate-400" data-page="home">
@@ -151,21 +129,17 @@
         <i class="fa-solid fa-briefcase text-lg"></i>
         <span class="text-[11px] font-bold">العروض</span>
       </button>
-      <button onclick="navigateTo('map')" class="nav-btn flex-1 py-1 flex flex-col items-center gap-1 text-brand-600" data-page="map">
-        <div class="w-10 h-10 -mt-4 rounded-full bg-gradient-to-tr from-brand-700 to-brand-500 text-white flex items-center justify-center shadow-lg shadow-brand-500/30">
-          <i class="fa-solid fa-map-location-dot text-base"></i>
-        </div>
-        <span class="text-[11px] font-bold mt-[-2px]">الخريطة</span>
-      </button>
       <button onclick="navigateTo('create')" class="nav-btn flex-1 py-1 flex flex-col items-center gap-1 text-slate-400" data-page="create">
-        <div class="w-9 h-9 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center">
-          <i class="fa-solid fa-plus text-sm"></i>
-        </div>
+        <i class="fa-solid fa-plus text-lg"></i>
         <span class="text-[11px] font-bold">إضافة</span>
       </button>
       <button onclick="navigateTo('drivers')" class="nav-btn flex-1 py-1 flex flex-col items-center gap-1 text-slate-400" data-page="drivers">
         <i class="fa-solid fa-helmet-safety text-lg"></i>
         <span class="text-[11px] font-bold">السائقين</span>
+      </button>
+      <button onclick="navigateTo('map')" class="nav-btn flex-1 py-1 flex flex-col items-center gap-1 text-brand-600" data-page="map">
+        <i class="fa-solid fa-map-location-dot text-lg"></i>
+        <span class="text-[11px] font-bold">الخريطة</span>
       </button>
     </div>
   </nav>
@@ -204,9 +178,6 @@
   </div>
 
   <script>
-    /* ==========================================================================
-       1. DATA & MOROCCO CITIES REPOSITORY
-       ========================================================================== */
     const MOROCCO_CITIES = [
       { id: 'casablanca', name: 'الدار البيضاء', lat: 33.5731, lng: -7.5898 },
       { id: 'rabat', name: 'الرباط', lat: 34.0209, lng: -6.8416 },
@@ -220,7 +191,6 @@
     ];
 
     const VEHICLE_TYPES = ['دراجة نارية', 'دراجة هوائية', 'سيارة', 'هوندا'];
-    const PAYMENT_TYPES = ['يومي (باليوم)', 'بالتوصيلة (لكل كورس)', 'شهري'];
 
     const INITIAL_OFFERS = [
       { id: 'off-1', shopName: 'مطعم فاس الأصيل', city: 'فاس', district: 'أكدال', price: 180, lat: 34.0300, lng: -5.0100, phone: '0661234567', whatsapp: '0661234567', description: 'توصيل وجبات غداء وعشاء داخل أحيـاء فاس.', status: 'open' },
@@ -270,18 +240,17 @@
         this.saveDrivers(drivers);
       },
       getUserRole() { return localStorage.getItem(this.KEY_ROLE) || 'shop'; },
-      setUserRole(role) { localStorage.setItem(this.KEY_ROLE, role); }
+      setUserRole(role) { 
+        localStorage.setItem(this.KEY_ROLE, role); 
+        const badge = document.getElementById('headerRoleBadge');
+        if (badge) badge.innerText = role === 'shop' ? '(صاحب محل)' : '(ليفرور)';
+      }
     };
 
-    /* ==========================================================================
-       2. GOOGLE MAPS ENGINE (MOROCCO WIDE)
-       ========================================================================== */
     let mapInstance = null;
     let mapMarkers = [];
 
-    function initGoogleMapsApp() {
-      console.log("Google Maps API initialized successfully.");
-    }
+    function initGoogleMapsApp() { console.log("Google Maps API initialized successfully."); }
 
     function renderGoogleMap() {
       const container = document.getElementById('googleMapCanvas');
@@ -383,9 +352,7 @@
             title: "موقعك الحالي"
           });
           showToast("تم تحديد موقعك بدقة", "success");
-        }, () => {
-          showToast("تعذر تحديد الموقع الجغرافي", "error");
-        });
+        }, () => { showToast("تعذر تحديد الموقع الجغرافي", "error"); });
       }
     }
 
@@ -399,9 +366,6 @@
       ];
     }
 
-    /* ==========================================================================
-       3. SPA ROUTING ENGINE
-       ========================================================================== */
     let currentPage = 'home';
 
     function navigateTo(page) {
@@ -437,9 +401,6 @@
       }
     }
 
-    /* ==========================================================================
-       4. VIEWS & TEMPLATES
-       ========================================================================== */
     function viewHome() {
       const offersCount = DataService.getOffers().length;
       const driversCount = DataService.getDrivers().length;
@@ -485,7 +446,6 @@
             </button>
           </div>
 
-          <!-- Cities Quick Bar -->
           <div class="flex gap-1.5 overflow-x-auto pb-1 no-scrollbar">
             ${MOROCCO_CITIES.map(c => `
               <button onclick="centerMapToCity('${c.name}')" class="px-3 py-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 rounded-xl text-xs font-bold whitespace-nowrap shadow-sm">
@@ -731,14 +691,11 @@
         <div class="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-center space-y-3">
           <i class="fa-solid fa-earth-africa text-5xl text-brand-600"></i>
           <h3 class="font-extrabold text-base">منصة ليفرور المغرب</h3>
-          <p class="text-xs text-slate-500">التطبيق جاهز بالكامل لتغطية جميع مدن المملكة باستخدام مفتاح Google Maps الخاص بك.</p>
+          <p class="text-xs text-slate-500">التطبيق جاهز بالكامل لتغطية جميع مدن المملكة.</p>
         </div>
       `;
     }
 
-    /* ==========================================================================
-       5. UTILITIES & INIT
-       ========================================================================== */
     function showToast(msg, type = 'info') {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
@@ -755,10 +712,18 @@
 
     function openQuickRoleModal() { document.getElementById('roleModal').classList.remove('hidden'); }
     function closeRoleModal() { document.getElementById('roleModal').classList.add('hidden'); }
-    function setUserRole(role) { DataService.setUserRole(role); closeRoleModal(); showToast("تم تحديث وضع الاستخدام", "success"); }
+    function setUserRole(role) {
+      DataService.setUserRole(role);
+      closeRoleModal();
+      showToast("تم تحديث وضع الاستخدام", "success");
+      navigateTo('home');
+    }
 
     function startApp() {
       DataService.init();
+      const currentRole = DataService.getUserRole();
+      const badge = document.getElementById('headerRoleBadge');
+      if (badge) badge.innerText = currentRole === 'shop' ? '(صاحب محل)' : '(ليفرور)';
       navigateTo('home');
     }
 
