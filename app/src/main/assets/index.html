@@ -54,7 +54,7 @@
   </script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Readex+Pro:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
     
     * {
       box-sizing: border-box;
@@ -62,9 +62,9 @@
       padding: 0;
     }
     body {
-      font-family: 'Readex Pro', system-ui, -apple-system, sans-serif;
+      font-family: 'Cairo', system-ui, -apple-system, sans-serif;
       font-weight: 400;
-      letter-spacing: normal;
+      letter-spacing: 0.2px;
       -webkit-tap-highlight-color: transparent;
       background-color: #020617;
       color: #f8fafc;
@@ -127,7 +127,7 @@
             <line x1="78" y1="37" x2="112" y2="37" stroke="#ef4444" stroke-width="2.8" stroke-linecap="round" opacity="0.75"/>
             <rect x="65" y="22" width="19" height="17" rx="3" fill="#334155" stroke="#475569" stroke-width="1.2"/>
             <rect x="67" y="24" width="15" height="13" rx="1.5" fill="#1e293b"/>
-            <text x="74.5" y="33" font-size="5.5" font-family="'Readex Pro', sans-serif" font-weight="bold" fill="#ffffff" text-anchor="middle">ليفرور</text>
+            <text x="74.5" y="33" font-size="5.5" font-family="'Cairo', sans-serif" font-weight="bold" fill="#ffffff" text-anchor="middle">ليفرور</text>
             <ellipse cx="46" cy="16" rx="7.5" ry="8.5" fill="#ef4444" stroke="#b91c1c" stroke-width="1.2"/>
             <path d="M42 15 Q38 17 42 20" stroke="#0f172a" stroke-width="3" stroke-linecap="round"/>
             <path d="M45 24 L58 30 L55 49 L43 49 L39 32 Z" fill="#0284c7" stroke="#0369a1" stroke-width="1.2"/>
@@ -698,7 +698,7 @@
         }).addTo(homeLeafletMap);
 
         const mainMarker = L.marker(cityData.coords).addTo(homeLeafletMap);
-        mainMarker.bindPopup(`<div dir="rtl" style="font-family:'Readex Pro',sans-serif; font-size:11px; font-weight:bold;">📍 مركز ${cityData.nameAr}<br><span style="font-size:9px; color:#555;">منطقة التوصيل النشطة</span></div>`);
+        mainMarker.bindPopup(`<div dir="rtl" style="font-family:'Cairo',sans-serif; font-size:11px; font-weight:bold;">📍 مركز ${cityData.nameAr}<br><span style="font-size:9px; color:#555;">منطقة التوصيل النشطة</span></div>`);
 
         const currentOffers = DataService.getOffers().filter(o => currentGlobalCity === 'all' || o.city === currentGlobalCity);
         const currentDrivers = DataService.getDrivers().filter(d => currentGlobalCity === 'all' || d.city === currentGlobalCity);
@@ -707,14 +707,14 @@
           const offsetLat = cityData.coords[0] + (Math.sin(idx) * 0.015);
           const offsetLng = cityData.coords[1] + (Math.cos(idx) * 0.015);
           const marker = L.marker([offsetLat, offsetLng]).addTo(homeLeafletMap);
-          marker.bindPopup(`<div dir="rtl" style="font-family:'Readex Pro',sans-serif; font-size:11px;">🏪 <b>${escapeHTML(offer.shopName)}</b><br><span>${escapeHTML(offer.shopType || 'محل تجاري')}</span><br><b>${offer.price} درهم</b></div>`);
+          marker.bindPopup(`<div dir="rtl" style="font-family:'Cairo',sans-serif; font-size:11px;">🏪 <b>${escapeHTML(offer.shopName)}</b><br><span>${escapeHTML(offer.shopType || 'محل تجاري')}</span><br><b>${offer.price} درهم</b></div>`);
         });
 
         currentDrivers.forEach((driver, idx) => {
           const offsetLat = cityData.coords[0] + (Math.cos(idx + 1) * 0.02);
           const offsetLng = cityData.coords[1] + (Math.sin(idx + 1) * 0.02);
           const marker = L.marker([offsetLat, offsetLng]).addTo(homeLeafletMap);
-          marker.bindPopup(`<div dir="rtl" style="font-family:'Readex Pro',sans-serif; font-size:11px;">🏍️ <b>${escapeHTML(driver.name)}</b><br><span>وسيلة: ${escapeHTML(driver.vehicle)}</span><br><span style="color:${driver.isAvailable ? 'green' : 'gray'}">${driver.isAvailable ? 'متاح للتوصيل' : 'غير متاح'}</span></div>`);
+          marker.bindPopup(`<div dir="rtl" style="font-family:'Cairo',sans-serif; font-size:11px;">🏍️ <b>${escapeHTML(driver.name)}</b><br><span>وسيلة: ${escapeHTML(driver.vehicle)}</span><br><span style="color:${driver.isAvailable ? 'green' : 'gray'}">${driver.isAvailable ? 'متاح للتوصيل' : 'غير متاح'}</span></div>`);
         });
 
       } catch (err) {
@@ -735,7 +735,7 @@
           const lng = position.coords.longitude;
           homeLeafletMap.setView([lat, lng], 16);
           L.marker([lat, lng]).addTo(homeLeafletMap)
-            .bindPopup(`<div dir="rtl" style="font-family:'Readex Pro',sans-serif; font-size:11px; font-weight:bold;">📍 موقعك الحالي</div>`)
+            .bindPopup(`<div dir="rtl" style="font-family:'Cairo',sans-serif; font-size:11px; font-weight:bold;">📍 موقعك الحالي</div>`)
             .openPopup();
           showToast('تم تحديد موقعك بنجاح', 'success');
         },
@@ -848,9 +848,9 @@
           },
           createMarker: function(i, waypoint, n) {
             if (i === 0) {
-              return L.marker(waypoint.latLng).bindPopup('<div dir="rtl" style="font-family:\'Readex Pro\',sans-serif; font-size:11px;"><b>🏍️ موقعك الحالي (السائق)</b></div>');
+              return L.marker(waypoint.latLng).bindPopup('<div dir="rtl" style="font-family:\'Cairo\',sans-serif; font-size:11px;"><b>🏍️ موقعك الحالي (السائق)</b></div>');
             } else {
-              return L.marker(waypoint.latLng).bindPopup(`<div dir="rtl" style="font-family:\'Readex Pro\',sans-serif; font-size:11px;"><b>🏪 محل: ${escapeHTML(params.shopName)}</b></div>`);
+              return L.marker(waypoint.latLng).bindPopup(`<div dir="rtl" style="font-family:\'Cairo\',sans-serif; font-size:11px;"><b>🏪 محل: ${escapeHTML(params.shopName)}</b></div>`);
             }
           }
         }).addTo(map);
@@ -896,8 +896,8 @@
 
       return `
         <div class="space-y-6">
-          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br ${isShop ? 'from-brand-900 via-brand-800 to-brand-700' : 'from-amber-900 via-amber-800 to-amber-700'} text-white p-5 sm:p-6 shadow-xl shadow-brand-900/20">
-            <div class="relative z-10 space-y-3">
+          <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br ${isShop ? 'from-brand-900 via-brand-800 to-brand-700' : 'from-amber-900 via-amber-800 to-amber-700'} text-white p-5 sm:p-6 shadow-xl shadow-brand-900/20 text-center">
+            <div class="relative z-10 space-y-3 flex flex-col items-center">
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-white/10 text-amber-300 border border-white/20">
                 <i class="fa-solid ${isShop ? 'fa-store' : 'fa-motorcycle'} text-[10px]"></i> 
                 ${isShop ? 'أنت في وضع: صاحب محل / مطعم' : 'أنت في وضع: ليفرور (سائق توصيل)'}
@@ -908,11 +908,11 @@
                 <span class="text-amber-400">في جميع المدن المغربية 🇲🇦</span>
               </h2>
 
-              <p class="text-xs text-brand-100/90 leading-relaxed max-w-xs">
+              <p class="text-xs text-brand-100/90 leading-relaxed max-w-xs mx-auto">
                 ${isShop ? 'تواصل مباشرة مع سائقي التوصيل القريبين من محلك بدون عمولات.' : 'اعثر على طلبات توصيل يومية مع المحلات والمطاعم بمدينتك.'}
               </p>
               
-              <div class="pt-2.5 grid grid-cols-2 gap-2.5">
+              <div class="pt-2.5 grid grid-cols-2 gap-2.5 w-full">
                 <button onclick="navigateTo('create', { mode: '${isShop ? 'offer' : 'driver'}' })" class="w-full py-2.5 px-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-[11px] rounded-xl shadow-md transition-all active:scale-95 flex items-center justify-center gap-1.5 h-10 whitespace-nowrap">
                   <i class="fa-solid fa-plus text-[10px]"></i>
                   <span>${isShop ? 'نشر عرض جديد' : 'تسجّل كليفرور'}</span>
