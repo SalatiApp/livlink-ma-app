@@ -30,6 +30,7 @@ fun NativeHomeScreenNew() {
     var menuOpen by remember { mutableStateOf(false) }
     var dark by remember { mutableStateOf(true) }
     var tab by remember { mutableIntStateOf(0) }
+    var addType by remember { mutableStateOf("offer") }
 
     val bg = if (dark) Color(0xFF0C1420) else Color(0xFFF3F5F8)
     val panel = if (dark) LivPanel else Color.White
@@ -71,237 +72,251 @@ fun NativeHomeScreenNew() {
                 }
             }
         ) { padding ->
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .padding(padding)
-                    .verticalScroll(rememberScrollState())
-            ) {
-                // Header
-                Row(
+            if (tab == 3) {
+                Box(
                     Modifier
-                        .fillMaxWidth()
-                        .background(LivNavy)
-                        .padding(horizontal = 18.dp, vertical = 17.dp),
-                    verticalAlignment = Alignment.CenterVertically
+                        .fillMaxSize()
+                        .padding(padding)
                 ) {
-                    Column(Modifier.weight(1f)) {
-                        Text(
-                            "LIVLINK",
-                            color = Color.White,
-                            fontSize = 25.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            letterSpacing = 1.5.sp
-                        )
-                        Text(
-                            "ليفرور المغرب",
-                            color = Color(0xFFFF6973),
-                            fontSize = 13.sp,
-                            fontWeight = FontWeight.SemiBold
-                        )
-                        Text(
-                            "منصة التوصيل بجميع مدن المملكة",
-                            color = Color(0xFFCBD5E1),
-                            fontSize = 10.sp
-                        )
-                    }
-                    Box(
-                        Modifier
-                            .size(48.dp)
-                            .background(Color(0xFF263548), CircleShape),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text("🇲🇦", fontSize = 27.sp)
-                    }
-                    Spacer(Modifier.width(8.dp))
-                    TextButton(onClick = { dark = !dark }) {
-                        Text(if (dark) "☀" else "☾", fontSize = 23.sp, color = Color.White)
-                    }
+                    AddScreen(
+                        dark = dark,
+                        onChooseOffer = { addType = "offer" },
+                        onChooseDriver = { addType = "driver" }
+                    )
                 }
-
+            } else {
                 Column(
-                    Modifier.fillMaxWidth().padding(horizontal = 16.dp)
+                    Modifier
+                        .fillMaxSize()
+                        .padding(padding)
+                        .verticalScroll(rememberScrollState())
                 ) {
-                    Spacer(Modifier.height(22.dp))
-
-                    Text(
-                        "مرحبا بك في LIVLINK 👋",
-                        color = fg,
-                        fontSize = 23.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(Modifier.height(5.dp))
-                    Text(
-                        "خدمات التوصيل في جميع أنحاء المغرب",
-                        color = muted,
-                        fontSize = 13.sp
-                    )
-
-                    Spacer(Modifier.height(18.dp))
-
-                    // Main callout
-                    Card(
-                        shape = RoundedCornerShape(22.dp),
-                        colors = CardDefaults.cardColors(containerColor = LivRed),
-                        modifier = Modifier.fillMaxWidth()
+                    // Header
+                    Row(
+                        Modifier
+                            .fillMaxWidth()
+                            .background(LivNavy)
+                            .padding(horizontal = 18.dp, vertical = 17.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Row(
-                            Modifier.fillMaxWidth().padding(18.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                        Column(Modifier.weight(1f)) {
+                            Text(
+                                "LIVLINK",
+                                color = Color.White,
+                                fontSize = 25.sp,
+                                fontWeight = FontWeight.ExtraBold,
+                                letterSpacing = 1.5.sp
+                            )
+                            Text(
+                                "ليفرور المغرب",
+                                color = Color(0xFFFF6973),
+                                fontSize = 13.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                            Text(
+                                "منصة التوصيل بجميع مدن المملكة",
+                                color = Color(0xFFCBD5E1),
+                                fontSize = 10.sp
+                            )
+                        }
+                        Box(
+                            Modifier
+                                .size(48.dp)
+                                .background(Color(0xFF263548), CircleShape),
+                            contentAlignment = Alignment.Center
                         ) {
-                            Column(Modifier.weight(1f)) {
-                                Text(
-                                    "التوصيل ولى أسهل!",
-                                    color = Color.White,
-                                    fontSize = 20.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
-                                Spacer(Modifier.height(6.dp))
-                                Text(
-                                    "تواصل مع المحلات والسائقين من مكان واحد",
-                                    color = Color.White,
-                                    fontSize = 12.sp,
-                                    lineHeight = 19.sp
-                                )
-                                Spacer(Modifier.height(12.dp))
-                                Text(
-                                    "اكتشف الخدمات  ←",
-                                    color = LivRed,
-                                    fontWeight = FontWeight.Bold,
-                                    modifier = Modifier
-                                        .background(Color.White, RoundedCornerShape(10.dp))
-                                        .clickable { tab = 2 }
-                                        .padding(horizontal = 13.dp, vertical = 9.dp)
-                                )
-                            }
-                            Spacer(Modifier.width(8.dp))
-                            Text("🛵", fontSize = 48.sp)
+                            Text("🇲🇦", fontSize = 27.sp)
+                        }
+                        Spacer(Modifier.width(8.dp))
+                        TextButton(onClick = { dark = !dark }) {
+                            Text(if (dark) "☀" else "☾", fontSize = 23.sp, color = Color.White)
                         }
                     }
 
-                    Spacer(Modifier.height(18.dp))
-
-                    // Role selector
-                    Card(
-                        shape = RoundedCornerShape(16.dp),
-                        colors = CardDefaults.cardColors(containerColor = panel)
+                    Column(
+                        Modifier.fillMaxWidth().padding(horizontal = 16.dp)
                     ) {
-                        Column(Modifier.fillMaxWidth().padding(14.dp)) {
-                            Text(
-                                "كيفاش بغيتي تستعمل LIVLINK؟",
-                                color = fg,
-                                fontSize = 14.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                            Spacer(Modifier.height(9.dp))
-                            Box {
-                                OutlinedButton(
-                                    onClick = { menuOpen = true },
-                                    modifier = Modifier.fillMaxWidth(),
-                                    shape = RoundedCornerShape(12.dp)
-                                ) {
-                                    Text(role, color = fg)
-                                    Spacer(Modifier.weight(1f))
-                                    Text("⌄", color = LivRed, fontSize = 20.sp)
+                        Spacer(Modifier.height(22.dp))
+
+                        Text(
+                            "مرحبا بك في LIVLINK 👋",
+                            color = fg,
+                            fontSize = 23.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(Modifier.height(5.dp))
+                        Text(
+                            "خدمات التوصيل في جميع أنحاء المغرب",
+                            color = muted,
+                            fontSize = 13.sp
+                        )
+
+                        Spacer(Modifier.height(18.dp))
+
+                        // Main callout
+                        Card(
+                            shape = RoundedCornerShape(22.dp),
+                            colors = CardDefaults.cardColors(containerColor = LivRed),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                Modifier.fillMaxWidth().padding(18.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Column(Modifier.weight(1f)) {
+                                    Text(
+                                        "التوصيل ولى أسهل!",
+                                        color = Color.White,
+                                        fontSize = 20.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Spacer(Modifier.height(6.dp))
+                                    Text(
+                                        "تواصل مع المحلات والسائقين من مكان واحد",
+                                        color = Color.White,
+                                        fontSize = 12.sp,
+                                        lineHeight = 19.sp
+                                    )
+                                    Spacer(Modifier.height(12.dp))
+                                    Text(
+                                        "اكتشف الخدمات  ←",
+                                        color = LivRed,
+                                        fontWeight = FontWeight.Bold,
+                                        modifier = Modifier
+                                            .background(Color.White, RoundedCornerShape(10.dp))
+                                            .clickable { tab = 2 }
+                                            .padding(horizontal = 13.dp, vertical = 9.dp)
+                                    )
                                 }
-                                DropdownMenu(
-                                    expanded = menuOpen,
-                                    onDismissRequest = { menuOpen = false }
-                                ) {
-                                    listOf("صاحب محل", "ليفرور").forEach { item ->
-                                        DropdownMenuItem(
-                                            text = { Text(item) },
-                                            onClick = {
-                                                role = item
-                                                menuOpen = false
-                                            }
-                                        )
+                                Spacer(Modifier.width(8.dp))
+                                Text("🛵", fontSize = 48.sp)
+                            }
+                        }
+
+                        Spacer(Modifier.height(18.dp))
+
+                        // Role selector
+                        Card(
+                            shape = RoundedCornerShape(16.dp),
+                            colors = CardDefaults.cardColors(containerColor = panel)
+                        ) {
+                            Column(Modifier.fillMaxWidth().padding(14.dp)) {
+                                Text(
+                                    "كيفاش بغيتي تستعمل LIVLINK؟",
+                                    color = fg,
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                                Spacer(Modifier.height(9.dp))
+                                Box {
+                                    OutlinedButton(
+                                        onClick = { menuOpen = true },
+                                        modifier = Modifier.fillMaxWidth(),
+                                        shape = RoundedCornerShape(12.dp)
+                                    ) {
+                                        Text(role, color = fg)
+                                        Spacer(Modifier.weight(1f))
+                                        Text("⌄", color = LivRed, fontSize = 20.sp)
+                                    }
+                                    DropdownMenu(
+                                        expanded = menuOpen,
+                                        onDismissRequest = { menuOpen = false }
+                                    ) {
+                                        listOf("صاحب محل", "ليفرور").forEach { item ->
+                                            DropdownMenuItem(
+                                                text = { Text(item) },
+                                                onClick = {
+                                                    role = item
+                                                    menuOpen = false
+                                                }
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
-                    }
 
-                    Spacer(Modifier.height(23.dp))
+                        Spacer(Modifier.height(23.dp))
 
-                    Text(
-                        "اكتشف خدماتنا",
-                        color = fg,
-                        fontSize = 19.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        "كل ما تحتاجه للتوصيل في مكان واحد",
-                        color = muted,
-                        fontSize = 12.sp
-                    )
-                    Spacer(Modifier.height(13.dp))
+                        Text(
+                            "اكتشف خدماتنا",
+                            color = fg,
+                            fontSize = 19.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(
+                            "كل ما تحتاجه للتوصيل في مكان واحد",
+                            color = muted,
+                            fontSize = 12.sp
+                        )
+                        Spacer(Modifier.height(13.dp))
 
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(11.dp)) {
-                        ServiceTile(
-                            "📦", "طلبات التوصيل", "تتبّع الطلبات",
-                            panel, fg, muted, Modifier.weight(1f)
-                        ) { tab = 0 }
-                        ServiceTile(
-                            "🗺️", "مدن وأحياء المغرب", "تصفّح المناطق",
-                            panel, fg, muted, Modifier.weight(1f)
-                        ) { tab = 2 }
-                    }
-                    Spacer(Modifier.height(11.dp))
-                    Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(11.dp)) {
-                        ServiceTile(
-                            "🛵", "انضم كليفرور", "ابدأ نشاطك",
-                            panel, fg, muted, Modifier.weight(1f)
-                        ) { role = "ليفرور" }
-                        ServiceTile(
-                            "🏪", "أصحاب المحلات", "وسّع خدماتك",
-                            panel, fg, muted, Modifier.weight(1f)
-                        ) { role = "صاحب محل" }
-                    }
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(11.dp)) {
+                            ServiceTile(
+                                "📦", "طلبات التوصيل", "تتبّع الطلبات",
+                                panel, fg, muted, Modifier.weight(1f)
+                            ) { tab = 0 }
+                            ServiceTile(
+                                "🗺️", "مدن وأحياء المغرب", "تصفّح المناطق",
+                                panel, fg, muted, Modifier.weight(1f)
+                            ) { tab = 2 }
+                        }
+                        Spacer(Modifier.height(11.dp))
+                        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(11.dp)) {
+                            ServiceTile(
+                                "🛵", "انضم كليفرور", "ابدأ نشاطك",
+                                panel, fg, muted, Modifier.weight(1f)
+                            ) { role = "ليفرور" }
+                            ServiceTile(
+                                "🏪", "أصحاب المحلات", "وسّع خدماتك",
+                                panel, fg, muted, Modifier.weight(1f)
+                            ) { role = "صاحب محل" }
+                        }
 
-                    Spacer(Modifier.height(23.dp))
+                        Spacer(Modifier.height(23.dp))
 
-                    Text(
-                        "الوصول السريع",
-                        color = fg,
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(Modifier.height(11.dp))
+                        Text(
+                            "الوصول السريع",
+                            color = fg,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(Modifier.height(11.dp))
 
-                    Card(
-                        shape = RoundedCornerShape(16.dp),
-                        colors = CardDefaults.cardColors(containerColor = panel)
-                    ) {
-                        Column(Modifier.fillMaxWidth().padding(15.dp)) {
-                            QuickLink("٪", "قسم العروض", "اكتشف العروض المتاحة", fg, muted) {
-                                tab = 1
-                            }
-                            HorizontalDivider(color = muted.copy(alpha = 0.2f))
-                            QuickLink("＋", "إضافة طلب", "ابدأ طلب توصيل جديد", fg, muted) {
-                                tab = 3
-                            }
-                            HorizontalDivider(color = muted.copy(alpha = 0.2f))
-                            QuickLink("♙", "السائقون", "قسم السائقين", fg, muted) {
-                                tab = 4
+                        Card(
+                            shape = RoundedCornerShape(16.dp),
+                            colors = CardDefaults.cardColors(containerColor = panel)
+                        ) {
+                            Column(Modifier.fillMaxWidth().padding(15.dp)) {
+                                QuickLink("٪", "قسم العروض", "اكتشف العروض المتاحة", fg, muted) {
+                                    tab = 1
+                                }
+                                HorizontalDivider(color = muted.copy(alpha = 0.2f))
+                                QuickLink("＋", "إضافة طلب", "ابدأ طلب توصيل جديد", fg, muted) {
+                                    tab = 3
+                                }
+                                HorizontalDivider(color = muted.copy(alpha = 0.2f))
+                                QuickLink("♙", "السائقون", "قسم السائقين", fg, muted) {
+                                    tab = 4
+                                }
                             }
                         }
-                    }
 
-                    Spacer(Modifier.height(18.dp))
-                    Text(
-                        when (tab) {
-                            1 -> "قسم العروض — الربط الفعلي ما زال قيد التطوير"
-                            2 -> "الخريطة — الربط الفعلي ما زال قيد التطوير"
-                            3 -> "إضافة طلب — الوظيفة ما زالت قيد التطوير"
-                            4 -> "قسم السائقين — الوظائف قيد التطوير"
-                            else -> "LIVLINK • التوصيل عبر مدن المغرب"
-                        },
-                        color = muted,
-                        fontSize = 11.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp)
-                    )
+                        Spacer(Modifier.height(18.dp))
+                        Text(
+                            when (tab) {
+                                1 -> "قسم العروض — الربط الفعلي ما زال قيد التطوير"
+                                2 -> "الخريطة — الربط الفعلي ما زال قيد التطوير"
+                                3 -> "إضافة طلب — الوظيفة ما زالت قيد التطوير"
+                                4 -> "قسم السائقين — الوظائف قيد التطوير"
+                                else -> "LIVLINK • التوصيل عبر مدن المغرب"
+                            },
+                            color = muted,
+                            fontSize = 11.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp)
+                        )
+                    }
                 }
             }
         }
