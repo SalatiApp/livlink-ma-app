@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       MyApplicationTheme {
-        HybridAppScreen()
+        NativeHomeScreen()
       }
     }
   }
