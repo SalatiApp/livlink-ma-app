@@ -838,6 +838,9 @@
             L.latLng(driverLatLng[0], driverLatLng[1]),
             L.latLng(shopLatLng[0], shopLatLng[1])
           ],
+          router: L.Routing.osrmv1({
+            serviceUrl: 'https://router.project-osrm.org/route/v1'
+          }),
           routeWhileDragging: false,
           addWaypoints: false,
           draggableWaypoints: false,
