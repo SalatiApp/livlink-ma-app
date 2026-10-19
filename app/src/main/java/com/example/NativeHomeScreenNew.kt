@@ -428,7 +428,7 @@ private fun ServiceTile(
         modifier = modifier.height(145.dp).clickable(onClick = onClick),
         shape = RoundedCornerShape(18.dp),
         colors = CardDefaults.cardColors(containerColor = panel),
-        elevation = CardDefaults.CardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
             Modifier.fillMaxSize().padding(14.dp),
@@ -464,7 +464,7 @@ private fun QuickLink(
         }
         Spacer(Modifier.width(12.dp))
         Column(Modifier.weight(1f)) {
-            Text(title, color, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
+            Text(title, color = fg, fontSize = 14.sp, fontWeight = FontWeight.SemiBold)
             Text(subtitle, color = muted, fontSize = 11.sp)
         }
         Text("‹", color = muted, fontSize = 23.sp)
